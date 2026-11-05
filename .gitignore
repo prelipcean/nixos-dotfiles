@@ -1,0 +1,42 @@
+# NixOS-specific
+result
+result-*
+*.gcroots
+/nix/
+.dirlocals
+
+# Home-manager
+.home-manager-backups/
+*.bak
+*-backup
+
+# System files
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.o
+*.a
+
+# Temporary files
+*.tmp
+*.log
+/tmp/
+
+# Sensitive data (don't commit!)
+.secrets
+secrets.nix
+*.key
+*.pem
+private-*
+
+# Large files
+*.iso
+*.tar.gz
+*.zip
+
+# IDE
+.vs/
+*.iml
