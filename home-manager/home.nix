@@ -241,6 +241,11 @@
     # Fonts
     jetbrains-mono
     nerd-fonts.jetbrains-mono
+
+    # PDF reading + OCR for book study
+    poppler-utils   # pdftoppm/pdftotext - unblocks Claude Code's native PDF page rendering
+    tesseract       # OCR engine, fallback for text buried in diagrams/scans
+    (python3.withPackages (ps: with ps; [ pymupdf pytesseract pdf2image pillow ]))
   ];
 
   # Session variables
