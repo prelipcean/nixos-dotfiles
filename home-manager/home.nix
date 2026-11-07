@@ -151,6 +151,13 @@
     enableZshIntegration = true;
   };
 
+  # Direnv (auto-load/unload per-directory env vars from .envrc/.env)
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   # Tmux
   programs.tmux = {
     enable = true;
@@ -257,6 +264,7 @@
     curl
     wget
     tree
+    uv            # Fast Python package installer/resolver (pip replacement)
 
     # Fonts
     jetbrains-mono
