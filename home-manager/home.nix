@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.username = "<USERNAME>";  # Change to your username
@@ -306,4 +306,13 @@
   home.sessionPath = [
     "$HOME/bin"
   ];
+
+  # Rebuild KDE's application cache after every switch - otherwise newly
+  # installed GUI apps don't show up in the Kickoff menu. This is because
+  # ~/.nix-profile is a symlink that switch repoints atomically; KDE's
+  # inotify watch on the old target never fires for the new one, so the
+  # cache goes stale until something forces a rebuild.
+  home.activation.rebuildKdeSycoca = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD ${pkgs.kdePackages.kservice}/bin/kbuildsycoca6 --noincremental $VERBOSE_ARG || true
+  '';
 }
