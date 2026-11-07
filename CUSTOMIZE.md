@@ -108,9 +108,9 @@ nvim home-manager/home.nix
 
 ```bash
 # Set your values
-USERNAME="george"
-NAME="Gheorghe Prelipcean"
-EMAIL="george@example.com"
+USERNAME="your_username"
+NAME="Your Full Name"
+EMAIL="your@email.com"
 
 # Replace in all files
 cd ~/dotfiles

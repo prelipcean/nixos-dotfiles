@@ -227,10 +227,30 @@
     tldr          # Simplified man pages
     glow          # Markdown viewer for terminal
     pandoc        # Universal document converter
+    mc            # Midnight Commander - terminal dual-pane file manager
+
+    # File managers
+    krusader      # KDE dual-pane file manager (Total Commander style)
+
+    # Krusader helper tools (archivers, diff/compare)
+    p7zip         # 7z archive support
+    unrar         # rar extraction
+    unzip         # zip extraction
+    zip           # zip creation
+    kdiff3        # file/folder diff
+    kdePackages.ark       # archive GUI backend
+    kdePackages.kompare   # diff viewer used by Krusader's compare feature
+    kdePackages.kget      # download manager Krusader can queue remote fetches to
+    krename       # batch rename tool
+    plocate       # locate/updatedb
 
     # Text editors & note-taking
     emacs         # Powerful terminal/GUI editor with org-mode
     obsidian      # GUI knowledge base for second brain
+
+    # Media
+    vlc           # Video/audio player
+    ffmpeg        # Audio/video conversion & processing
 
     # Development
     git
@@ -245,7 +265,35 @@
     # PDF reading + OCR for book study
     poppler-utils   # pdftoppm/pdftotext - unblocks Claude Code's native PDF page rendering
     tesseract       # OCR engine, fallback for text buried in diagrams/scans
-    (python3.withPackages (ps: with ps; [ pymupdf pytesseract pdf2image pillow ]))
+    (python3.withPackages (ps: with ps; [ pymupdf pytesseract pdf2image pillow pyserial ]))
+
+    # Embedded development - STM32 (ARM Cortex-M)
+    gcc-arm-embedded  # arm-none-eabi-gcc/g++/gdb toolchain
+    gcc               # host compiler, for the CMake host-tests preset (Unity/CTest)
+    cmake
+    ninja
+    openocd           # flashing/debugging via ST-LINK
+    stlink            # st-flash/st-info/st-util
+    doxygen
+    graphviz          # dot, for Doxygen include/collaboration graphs
+    clang-tools       # provides clang-format, clang-tidy, clangd (LSP) - NOT a compiler
+    # (no standalone `gdb` - gcc-arm-embedded already bundles arm-none-eabi-gdb,
+    # and a plain `gdb` conflicts with it on shared system-gdbinit files)
+
+    # Editor: VSCodium (upstream `vscode`/`vscode-fhs` are broken on this nixpkgs
+    # channel as of 1.144.0 - ripgrep binary path changed, patchPhase not updated
+    # yet; VSCodium builds from source and isn't affected)
+    vscodium
+
+    # Embedded development - other architectures (uncomment when needed)
+    # Verify exact attribute names with `nix search nixpkgs <term>` before enabling -
+    # these ecosystems are less standardized in nixpkgs than the ARM toolchain above.
+    # pkgsCross.avr.buildPackages.gcc  # AVR cross compiler (Arduino-class targets)
+    # avrdude                          # AVR flashing tool
+    # platformio                       # unified build/flash tool; often the easiest path for ESP32
+    # ESP32/ESP-IDF: no plain nixpkgs attribute - use `platformio` above, or the
+    # community `esp-idf-nix` flake (https://github.com/mirrexagon/esp-idf-nix) if
+    # you need the full ESP-IDF SDK rather than PlatformIO's wrapped version.
   ];
 
   # Session variables
@@ -253,4 +301,9 @@
     EDITOR = "nvim";
     PAGER = "less";
   };
+
+  # Add ~/bin to PATH
+  home.sessionPath = [
+    "$HOME/bin"
+  ];
 }
